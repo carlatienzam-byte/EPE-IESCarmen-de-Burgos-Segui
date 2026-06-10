@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@5.x.x/dist/aframe-event-set-component.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      
+		<a-gltf-model src="backrooms_vr.glb" scale="1.25 1.25 1.25" position="0 0 0"></a-gltf-model>
+		
+		
+		<a-sound src="warm-nights.mp3" autoplay="true" position="-38.38629 7.52826 6.26842" sound="loop: true; volume: 20" data_liveedit_tagid="0000000017EF4AE0"></a-sound>
+
+		<a-link id="miEnlace1" href="https://carlatienzam-byte.github.io/EPE-Alberto_Santin-Vera/" title="Sala Gasolinera" position="6.4927 0.94772 6.76992" scale="0.5 0.5 0.5" geometry="primitive: circle; segments: 64" material="shader: portal; side: double; previewDistance: 7.5" rotation="-2.175670862578057 -84.75516088305645 0"><a-entity text="align: center; color: white; font: kelsonsans; value: Sala Gasolinera; width: 5" position="0 1.5 0" rotation="0 180 0"></a-entity></a-link>
+		
+		
+		<a-link id="miEnlace2" href="https://carlatienzam-byte.github.io/EPE-Carmen-Lara-Gomez/" title="Sala Japanese Period" position="-42.05693 1.3171 -4.44459" scale="0.5 0.5 0.5" geometry="primitive: circle; segments: 64" material="shader: portal; side: double; previewDistance: 7.5" rotation="0 -176.79999999999998 0"><a-entity text="align: center; color: white; font: kelsonsans; value: Sala Japanese Period; width: 5" position="0 1.5 0" rotation="0 180 0"></a-entity></a-link>
+		
+		
+		<a-link id="miEnlace3" href="https://carlatienzam-byte.github.io/EPE-Alejandra-Henche-de-Lucas/" title="Strange World" position="-54.32779 1.14831 8.06231" scale="0.5 0.5 0.5" geometry="primitive: circle; segments: 64" material="shader: portal; side: double; previewDistance: 7.5" rotation="-1.7723184711696804 5 -9.943990392522888e-17"><a-entity text="align: center; color: white; font: kelsonsans; value: Strange World; width: 5" position="0 1.5 0" rotation="0 180 0"></a-entity></a-link>
+		
+		
+		<a-link id="miEnlace4" href="https://carlatienzam-byte.github.io/EPE-Laura-Sofia-Aguirre/" title="The Simpsons" position="-53.73499 1.76586 -4.54693" scale="0.5 0.5 0.5" geometry="primitive: circle; segments: 64" material="shader: portal; side: double; previewDistance: 7.5" rotation="0 179.9 0"><a-entity text="align: center; color: white; font: kelsonsans; value: The Simpsons; width: 5" position="0 1.5 0" rotation="0 180 0"></a-entity></a-link>
+		
+		
+		<a-link id="miEnlace5" href="https://carlatienzam-byte.github.io/EPE-Pilar-Montalvo-Velasco/" title="Adventure Time" position="-79.05526 1.66112 18.02414" scale="0.5 0.5 0.5" geometry="primitive: circle; segments: 64" material="shader: portal; side: double; previewDistance: 7.5" rotation="0 360 0"><a-entity text="align: center; color: white; font: kelsonsans; value: Adventure Time; width: 5" position="0 1.5 0" rotation="0 180 0"></a-entity></a-link>
+	
+		
+		<a-camera>
+    <a-cursor></a-cursor>
+  </a-camera>
+		
+<script>
+document.querySelector('#miEnlace1').addEventListener('click', function () {
+    window.location.href ='https://carlatienzam-byte.github.io/EPE-Alberto_Santin-Vera/';
+});
+	
+document.querySelector('#miEnlace2').addEventListener('click', function () {
+    window.location.href ='https://carlatienzam-byte.github.io/EPE-Carmen-Lara-Gomez/';
+	
+
+	document.querySelector('#miEnlace3').addEventListener('click', function () {
+    window.location.href ='https://carlatienzam-byte.github.io/EPE-Alejandra-Henche-de-Lucas/';
+});
+	
+document.querySelector('#miEnlace4').addEventListener('click', function () {
+    window.location.href ='https://carlatienzam-byte.github.io/EPE-Laura-Sofia-Aguirre/';
+	
+});
+	
+document.querySelector('#miEnlace5').addEventListener('click', function () {
+    window.location.href ='https://carlatienzam-byte.github.io/EPE-Pilar-Montalvo-Velasco/';
+	
+});
+	
+	
+</script>
+
+    </a-scene>
+  </body>
+</html>
