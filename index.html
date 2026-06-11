@@ -1,20 +1,45 @@
+<!Doctype html>
 <html>
   <head>
     <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@5.x.x/dist/aframe-event-set-component.min.js"></script>
+	  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.7.0/dist/aframe-extras.min.js"></script>
+	  
+	   <style>
+      /* Estilos para el contenedor del joystick en el móvil */
+      #joystick-zone {
+        position: absolute;
+        bottom: 40px;
+        left: 40px;
+        width: 120px;
+        height: 120px;
+        z-index: 999;
+        /* Evita que interfiera con los clics normales si no se está tocando */
+        pointer-events: auto; 
+      }
+      /* Ocultar el joystick si estamos en un ordenador de escritorio */
+      @media (pointer: fine) {
+        #joystick-zone { display: none; }
+      }
+    </style> 
   </head>
   <body>
+	  
+	   
     <a-scene>
-
-		<!--Primitivas-->
 		
-		<a-plane width="50" height="50" data_liveedit_tagid="000000001279EBB0" material="color: #ba9652" rotation="-90 0 0" geometry="height: 1000; width: 1000" position="0 -4.344 0"></a-plane>
-		<a-sky color="#FFF" data_liveedit_tagid="000000001279EE10" material="color: #b28f50"></a-sky>
+		 <!-- Zona táctil donde aparecerá el joystick -->
+    <div id="joystick-zone"></div>
       
 		<a-gltf-model src="backrooms_vr.glb" scale="1.25 1.25 1.25" position="0 0 0"></a-gltf-model>
 		
+		<!--Primitivas-->
 		
-		<a-sound src="warm-nights.mp3" autoplay="true" position="-38.38629 7.52826 6.26842" sound="loop: true; volume: 20" data_liveedit_tagid="0000000017EF4AE0"></a-sound>
+		<a-plane width="50" height="50" material="color: #ba9652" rotation="-90 0 0" geometry="height: 1000; width: 1000" position="0 -4.344 0"></a-plane>
+		<a-sky color="#FFF" material="color: #b28f50"></a-sky>
+		
+		
+		<a-sound src="warm-nights.mp3" autoplay="true" position="-38.38629 7.52826 6.26842" sound="loop: true; volume: 20"></a-sound>
 
 		<a-link id="miEnlace1" href="https://carlatienzam-byte.github.io/EPE-Alberto_Santin-Vera/" title="Sala Gasolinera" position="6.4927 0.94772 6.76992" scale="0.5 0.5 0.5" geometry="primitive: circle; segments: 64" material="shader: portal; side: double; previewDistance: 7.5" rotation="-2.175670862578057 -84.75516088305645 0"><a-entity text="align: center; color: white; font: kelsonsans; value: Sala Gasolinera; width: 5" position="0 1.5 0" rotation="0 180 0"></a-entity></a-link>
 		
@@ -58,6 +83,68 @@ document.querySelector('#miEnlace5').addEventListener('click', function () {
 	
 });
 	
+	  <!-- SCRIPT DE CONTROL DEL JOYSTICK -->
+	 // Configuración del joystick táctil
+      const options = {
+        zone: document.getElementById('joystick-zone'),
+        mode: 'static',
+        position: { left: '50%', top: '50%' },
+        color: '#ffffff',
+        size: 100
+      };
+
+      const manager = nipplejs.create(options);
+      const rig = document.getElementById('rig');
+      const camera = document.getElementById('camera');
+      
+      let moveX = 0;
+      let moveZ = 0;
+      const speed = 0.08; // Velocidad de movimiento en el móvil
+
+      // Detectar cuando el usuario mueve el joystick
+      manager.on('move', function (evt, data) {
+        if (data.direction) {
+          // Calculamos la dirección basándonos en el ángulo del joystick
+          const angle = data.angle.radian;
+          
+          // Invertimos y ajustamos para que coincida con la vista de la cámara
+          moveX = Math.cos(angle);
+          moveZ = -Math.sin(angle);
+        }
+      });
+
+      // Detener el movimiento al soltar el joystick
+      manager.on('end', function () {
+        moveX = 0;
+        moveZ = 0;
+      });
+
+      // Bucle de renderizado para mover al jugador en la dirección que mira la cámara
+      function tick() {
+        if (moveX !== 0 || moveZ !== 0) {
+          // Obtener la rotación actual de la cámara (Y es el giro horizontal)
+          const rotation = camera.getAttribute('rotation');
+          const angleY = rotation.y * Math.PI / 180;
+
+          // Matriz de rotación para avanzar hacia donde mira el usuario
+          const cos = Math.cos(angleY);
+          const sin = Math.sin(angleY);
+
+          // Traducir el movimiento del joystick al espacio 3D relativo a la cámara
+          const targetX = moveX * cos - moveZ * sin;
+          const targetZ = moveX * sin + moveZ * cos;
+
+          // Aplicar la nueva posición al 'rig' (contenedor de la cámara)
+          const position = rig.getAttribute('position');
+          position.x += targetX * speed;
+          position.z += targetZ * speed;
+          rig.setAttribute('position', position);
+        }
+        requestAnimationFrame(tick);
+      }
+      
+      // Iniciar el bucle de movimiento
+      tick();
 	
 </script>
 
